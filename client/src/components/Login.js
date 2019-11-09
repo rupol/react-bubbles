@@ -54,9 +54,9 @@ const Login = props => {
           value={user.password}
           onChange={handleChange}
         />
-
+        <div className="button-row"></div>
         <button type="submit">Log In</button>
-        {error && <legend className="error">{error}</legend>}
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

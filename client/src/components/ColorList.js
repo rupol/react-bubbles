@@ -67,6 +67,7 @@ const ColorList = ({ colors, updateColors }) => {
       .post("/colors", newColor)
       .then(result => {
         console.log("Color was added", result.data);
+        setNewColor(initialColor);
         axiosWithAuth()
           .get("/colors")
           .then(res => {
