@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -16,15 +17,39 @@ const ColorList = ({ colors, updateColors }) => {
     setColorToEdit(color);
   };
 
-  const saveEdit = e => {
-    e.preventDefault();
+  const saveEdit = () => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    console.log(colorToEdit);
+
+    axiosWithAuth()
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    const deletedColor = colors.find(item => item.id === color.id);
+
+    if (window.confirm("Are you sure you want to delete this color?")) {
+      updateColors(colors.filter(item => item.id !== color.id));
+
+      axiosWithAuth()
+        .delete(`/colors/${color.id}`)
+        .then(result => {
+          console.log("Color was deleted");
+        })
+        .catch(error => {
+          console.log(error);
+          updateColors([...colors, deletedColor]);
+        });
+    }
   };
 
   return (
@@ -34,12 +59,14 @@ const ColorList = ({ colors, updateColors }) => {
         {colors.map(color => (
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
-              <span className="delete" onClick={e => {
-                    e.stopPropagation();
-                    deleteColor(color)
-                  }
-                }>
-                  x
+              <span
+                className="delete"
+                onClick={e => {
+                  e.stopPropagation();
+                  deleteColor(color);
+                }}
+              >
+                x
               </span>{" "}
               {color.color}
             </span>
