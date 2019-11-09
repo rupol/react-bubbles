@@ -119,7 +119,7 @@ const ColorList = ({ colors, updateColors }) => {
           </div>
         </form>
       )}
-      <div className="spacer" />
+
       {/* stretch - build another form here to add a color */}
       <form onSubmit={addColor}>
         <legend>add color</legend>
