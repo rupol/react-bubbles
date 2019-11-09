@@ -11,38 +11,28 @@ app.use(CORS());
 
 let colors = [
   {
-    color: "aliceblue",
-    code: {
-      hex: "#f0f8ff"
-    },
+    code: { hex: "#CBD3C4" },
+    color: "pastel grey",
     id: 1
   },
   {
-    color: "limegreen",
-    code: {
-      hex: "#99ddbc"
-    },
+    code: { hex: "#375156" },
+    color: "dark slate",
     id: 2
   },
   {
-    color: "aqua",
-    code: {
-      hex: "#00ffff"
-    },
+    code: { hex: "#8B6364" },
+    color: "rose taupe",
     id: 3
   },
   {
-    color: "aquamarine",
-    code: {
-      hex: "#7fffd4"
-    },
+    code: { hex: "#D5B9B1" },
+    color: "dark vanilla",
     id: 4
   },
   {
-    color: "lilac",
-    code: {
-      hex: "#9a99dd"
-    },
+    code: { hex: "#A73E36" },
+    color: "pale carmine",
     id: 5
   },
   {
@@ -60,10 +50,8 @@ let colors = [
     id: 7
   },
   {
-    color: "softyellow",
-    code: {
-      hex: "#dcdd99"
-    },
+    code: { hex: "#471323" },
+    color: "dark sienna",
     id: 8
   },
   {
@@ -74,17 +62,13 @@ let colors = [
     id: 9
   },
   {
-    color: "blue",
-    code: {
-      hex: "#6093ca"
-    },
+    code: { hex: "#216869" },
+    color: "myrtle green",
     id: 10
   },
   {
-    color: "blueviolet",
-    code: {
-      hex: "#8a2be2"
-    },
+    code: { hex: "#BB7897" },
+    color: "english lavender",
     id: 11
   }
 ];

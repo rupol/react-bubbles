@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
 
@@ -17,16 +17,26 @@ const ColorList = ({ colors, updateColors }) => {
     setColorToEdit(color);
   };
 
-  const saveEdit = () => {
+  const saveEdit = e => {
+    e.preventDefault();
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
-    console.log(colorToEdit);
 
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(result => {
-        console.log("Color was updated");
+        console.log("Color was updated", result);
+        setColorToEdit(initialColor);
+        setEditing(false);
+        axiosWithAuth()
+          .get("/colors")
+          .then(res => {
+            updateColors(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(error => {
         console.log(error);
@@ -37,27 +47,34 @@ const ColorList = ({ colors, updateColors }) => {
     // make a delete request to delete this color
     const deletedColor = colors.find(item => item.id === color.id);
 
-    if (window.confirm("Are you sure you want to delete this color?")) {
-      updateColors(colors.filter(item => item.id !== color.id));
+    updateColors(colors.filter(item => item.id !== color.id));
 
-      axiosWithAuth()
-        .delete(`/colors/${color.id}`)
-        .then(result => {
-          console.log("Color was deleted");
-        })
-        .catch(error => {
-          console.log(error);
-          updateColors([...colors, deletedColor]);
-        });
-    }
+    axiosWithAuth()
+      .delete(`/colors/${color.id}`)
+      .then(result => {
+        console.log("Color was deleted", result);
+      })
+      .catch(error => {
+        console.log(error);
+        updateColors([...colors, deletedColor]);
+      });
   };
 
-  const addColor = () => {
-    console.log(newColor);
+  const addColor = e => {
+    e.preventDefault();
+
     axiosWithAuth()
       .post("/colors", newColor)
       .then(result => {
-        console.log("Color was added");
+        console.log("Color was added", result.data);
+        axiosWithAuth()
+          .get("/colors")
+          .then(res => {
+            updateColors(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(error => {
         console.log(error);
